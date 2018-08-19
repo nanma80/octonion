@@ -5,14 +5,19 @@ def get_generators():
   bases = []
   for index in xrange(8):
     base = np.zeros(8)
-    base[index] = 1
+    base[index] = 2
     bases.append(base)
 
   identity = bases[0]
 
   h = np.zeros(8)
+  # h[1] = 1
+  # h[2] = 1
+  # h[3] = 1
+  # h[7] = 1
+
   for index in xrange(1, 5):
-    h[index] = 1.0 / 2
+    h[index] = 1
 
   return [bases[1], bases[2], h]
   # return [bases[1], bases[2], bases[4]]
@@ -37,8 +42,8 @@ generators = get_generators()
 for generation_index in xrange(10):
   generation_start_count = len(elements)
   for generator in generators:
-    new_elements = [multiply(element, generator) for element in elements] + \
-                   [multiply(generator, element) for element in elements]
+    new_elements = [multiply(element, generator)/2 for element in elements] + \
+                   [multiply(generator, element)/2 for element in elements]
     elements = join(elements, new_elements)
   print "Generation #" + repr(generation_index), ": ", len(elements)
   generation_end_count = len(elements)
@@ -48,7 +53,16 @@ for generation_index in xrange(10):
 print "Element count:", len(elements)
 elements = sorted(elements, key=lambda vector: np.inner(vector, [10**(-n) for n in xrange(8)]))
 for element in elements:
-  print element
+  # signature = 0
+  # for index, coordinate in enumerate(element):
+  #   value = 0
+  #   if abs(coordinate) < 1.1 and abs(coordinate) > 0.9:
+  #     value = 1
+  #   signature += index * value
+  # signature = signature % 5
+  # print signature, element
+  print repr(list([int(c) for c in element])) + ','
+
 
 # for element in elements:
 #   if abs(element[3]) < 0.0001 and abs(element[4]) < 0.0001 and abs(element[5]) < 0.0001 and abs(element[7]) < 0.0001:
