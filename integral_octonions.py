@@ -50,9 +50,18 @@ for generation_index in xrange(10):
   if generation_end_count == generation_start_count:
     break
 
+elements = [[int(c) for c in element] for element in elements]
+
 print "Element count:", len(elements)
-elements = sorted(elements, key=lambda vector: np.inner(vector, [10**(-n) for n in xrange(8)]))
+elements = sorted(elements, key=lambda vector: np.inner(vector, [10**(n) for n in xrange(8)]))
 for element in elements:
+  if sum(element) == 4:
+    indices = []
+    for index, coordinate in enumerate(element):
+      if coordinate != 0:
+        indices.append(index)
+    print element, indices, sum(indices)
+
   # signature = 0
   # for index, coordinate in enumerate(element):
   #   value = 0
@@ -61,7 +70,7 @@ for element in elements:
   #   signature += index * value
   # signature = signature % 5
   # print signature, element
-  print repr(list([int(c) for c in element])) + ','
+  # print repr(list([int(c) for c in element])) + ','
 
 
 # for element in elements:
