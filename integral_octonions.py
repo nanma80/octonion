@@ -60,7 +60,7 @@ for element in elements:
     for index, coordinate in enumerate(element):
       if coordinate != 0:
         indices.append(index)
-    print element, indices, sum(indices)
+    print element, indices #, sum(indices)
 
   # signature = 0
   # for index, coordinate in enumerate(element):
@@ -92,3 +92,36 @@ for element in elements:
 # 16 elements with (+/-1, 0, 0,...)
 # 224 other elements. 16 of them in a group. 14 groups depending on the nonzero positions
 
+# http://math.ucr.edu/home/baez/week194.html
+# These integral domains are also discussed
+# in Coxeter's paper Regular and Semi-Regular Polyotpes III
+# (Math. Z. 200, 3-45, 1988), where he describes the 240 units
+# of an E8 integral domain as
+
+# "... the 16 + 16 + 16 octaves
+
+# +/-1, +/-i, +/-j, +/-k, +/-e, +/-ie, +/-je, +/-ke,
+
+# (+/-1+/-ie+/-je+/-ke)/2,
+
+# (+/-e+/-i+/-j+/-k)/2,
+
+# and the 192 others derived from the last two expressions by
+# cyclically permuting the 7 symbols [ i,j,k,e,ie,je,ke ]
+# in the peculiar order
+#      e, i, j, ie, ke, k, je
+# ...
+# It seems somewhat paradoxical ... that the cyclic permutation
+#     ( e, i, j, ie, ke, k, je ),
+# which preserves the integral domain
+# (and the finite projective [Fano] plane ...)
+# is not an automorphism of the whole ring of octaves;
+# it transforms the associative triad ijk
+# into the anti-associative triad j ie je.
+
+# On the other hand, the permutation
+#     ( e ie je i k ke j ),
+# which IS an automorphism of the whole ring of octaves
+# (and of the finite [Fano] plane ...)
+# transforms this particular integral domain into another
+# one of R. H. Bruck's cyclic of seven such domains.  ...".
