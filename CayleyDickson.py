@@ -8,6 +8,8 @@ def conj(x):
     return xstar 
 
 def CayleyDickson(x, y):
+    x, y = np.array(x), np.array(y)
+
     n = len(x)
 
     if n == 1:

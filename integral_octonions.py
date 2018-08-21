@@ -5,87 +5,55 @@ def get_generators():
   bases = []
   for index in xrange(8):
     base = np.zeros(8)
-    base[index] = 2
+    base[index] = 2 # double the numbers so that half int becomes int
     bases.append(base)
 
   identity = bases[0]
 
   h = np.zeros(8)
-  # h[1] = 1
-  # h[2] = 1
-  # h[3] = 1
-  # h[7] = 1
-
   for index in xrange(1, 5):
     h[index] = 1
 
   return [bases[1], bases[2], h]
   # return [bases[1], bases[2], bases[4]]
 
-def join(original_list, new_list):
-  for element in new_list:
-    matched = False
-    for old_element in original_list:
-      if np.linalg.norm(old_element - element) < 10 ** (-10):
-        matched = True
-        break
-    if not matched:
-      original_list.append(element)
-  return original_list
+def tuplize(nparray):
+  return tuple([int(c) for c in nparray])
 
 
-elements = get_generators()
-print elements
+def generation_function(original, generator):
+  vector = multiply(original, generator) / 2
+  return tuplize(vector)
+
+
+def generate_loop(generators, generation_limit = 10):
+  elements = set([tuplize(g) for g in generators])
+
+  for generation_index in xrange(generation_limit):
+    generation_start_count = len(elements)
+    for generator in generators:
+      new_elements = [generation_function(element, generator) for element in elements] + \
+                     [generation_function(generator, element) for element in elements]
+      for el in new_elements:
+        elements.add(el)
+    print "Generation #" + repr(generation_index), ": ", len(elements)
+    generation_end_count = len(elements)
+    if generation_end_count == generation_start_count:
+      break
+  return elements
 
 generators = get_generators()
-
-for generation_index in xrange(10):
-  generation_start_count = len(elements)
-  for generator in generators:
-    new_elements = [multiply(element, generator)/2 for element in elements] + \
-                   [multiply(generator, element)/2 for element in elements]
-    elements = join(elements, new_elements)
-  print "Generation #" + repr(generation_index), ": ", len(elements)
-  generation_end_count = len(elements)
-  if generation_end_count == generation_start_count:
-    break
-
-elements = [[int(c) for c in element] for element in elements]
+elements = generate_loop(generators)
 
 print "Element count:", len(elements)
-elements = sorted(elements, key=lambda vector: np.inner(vector, [10**(n) for n in xrange(8)]))
+
 for element in elements:
   if sum(element) == 4:
     indices = []
     for index, coordinate in enumerate(element):
       if coordinate != 0:
         indices.append(index)
-    print element, indices #, sum(indices)
-
-  # signature = 0
-  # for index, coordinate in enumerate(element):
-  #   value = 0
-  #   if abs(coordinate) < 1.1 and abs(coordinate) > 0.9:
-  #     value = 1
-  #   signature += index * value
-  # signature = signature % 5
-  # print signature, element
-  # print repr(list([int(c) for c in element])) + ','
-
-
-# for element in elements:
-#   if abs(element[3]) < 0.0001 and abs(element[4]) < 0.0001 and abs(element[5]) < 0.0001 and abs(element[7]) < 0.0001:
-#     print element
-
-# max_inner = 100
-# count = 0
-# for element in elements:
-#   inner = np.inner(element, elements[1])
-#   if abs(inner - 0.5) < 0.001:
-#     count += 1
-
-# print count
-
+    print element, indices
 
 # when generators are [bases[1], bases[2], h]
 # 240 elements, 421 polytope. 56 nearest neighbors for each point
@@ -97,15 +65,10 @@ for element in elements:
 # in Coxeter's paper Regular and Semi-Regular Polyotpes III
 # (Math. Z. 200, 3-45, 1988), where he describes the 240 units
 # of an E8 integral domain as
-
 # "... the 16 + 16 + 16 octaves
-
 # +/-1, +/-i, +/-j, +/-k, +/-e, +/-ie, +/-je, +/-ke,
-
-# (+/-1+/-ie+/-je+/-ke)/2,
-
-# (+/-e+/-i+/-j+/-k)/2,
-
+# (+/-1 +/-ie +/-je +/-ke)/2,
+# (+/-e +/-i  +/-j  +/-k )/2,
 # and the 192 others derived from the last two expressions by
 # cyclically permuting the 7 symbols [ i,j,k,e,ie,je,ke ]
 # in the peculiar order
@@ -118,7 +81,6 @@ for element in elements:
 # is not an automorphism of the whole ring of octaves;
 # it transforms the associative triad ijk
 # into the anti-associative triad j ie je.
-
 # On the other hand, the permutation
 #     ( e ie je i k ke j ),
 # which IS an automorphism of the whole ring of octaves
