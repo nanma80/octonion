@@ -34,8 +34,8 @@ def generate_loop(generators, generation_limit = 10):
   for generation_index in xrange(generation_limit):
     generation_start_count = len(elements)
     for generator in generators:
-      new_elements = [generation_function(element, generator) for element in elements] + \
-                     [generation_function(generator, element) for element in elements]
+      new_elements = [generation_function(element, generator) for element in elements]
+      new_elements.extend([generation_function(generator, element) for element in elements])
       for el in new_elements:
         elements.add(el)
     print "Generation #" + repr(generation_index), ": ", len(elements)
