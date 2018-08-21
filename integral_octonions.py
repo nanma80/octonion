@@ -10,12 +10,14 @@ def get_generators():
 
   identity = bases[0]
 
-  h = np.zeros(8)
-  for index in xrange(1, 5):
-    h[index] = 1
+  h = [0, 1, 1, 1, 1, 0, 0, 0]
+  # h2 = [0, 1, 1, 1, 0, 0, 1, 0]
 
   return [bases[1], bases[2], h]
   # return [bases[1], bases[2], bases[4]]
+
+def norm(octonion):
+  return np.sqrt(multiply(conj(octonion), octonion)[0]) / 2
 
 def tuplize(nparray):
   return tuple([int(c) for c in nparray])
@@ -46,6 +48,12 @@ generators = get_generators()
 elements = generate_loop(generators)
 
 print "Element count:", len(elements)
+
+# for element in elements:
+#   norm_element = norm(element)
+#   if norm_element < 0.99 or norm_element > 1.01:
+#     print element, norm_element
+
 
 for element in elements:
   if sum(element) == 4:

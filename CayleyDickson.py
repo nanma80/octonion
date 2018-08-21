@@ -3,6 +3,7 @@
 import numpy as np
 
 def conj(x):
+    x = np.array(x)
     xstar = -x
     xstar[0] *= -1
     return xstar 
