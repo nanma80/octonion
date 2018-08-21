@@ -1,4 +1,6 @@
 import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
 from CayleyDickson import *
 
 def get_generators():
@@ -44,10 +46,30 @@ def generate_loop(generators, generation_limit = 10):
       break
   return elements
 
+def plot(elements, generators):
+  graph = nx.DiGraph()
+  graph.add_nodes_from(elements, node_color='blue')
+  edges = []
+  colors = ['red', 'magenta', 'green', 'blue']
+  for generator in generators:
+    edge_per_color = []
+    for element in elements:
+      edge_per_color.append((element, generation_function(element, generator)))
+    edges.append(edge_per_color)
+
+  pos = nx.spring_layout(graph)
+
+  nx.draw_networkx_nodes(graph, pos, node_color='black')
+  for index in xrange(len(edges)):
+    nx.draw_networkx_edges(graph, pos, edgelist=edges[index], edge_color=colors[index], arrows=True)
+  plt.show()
+
 generators = get_generators()
 elements = generate_loop(generators)
 
 print "Element count:", len(elements)
+
+# plot(elements, generators)
 
 # for element in elements:
 #   norm_element = norm(element)
@@ -55,13 +77,17 @@ print "Element count:", len(elements)
 #     print element, norm_element
 
 
-for element in elements:
-  if sum(element) == 4:
-    indices = []
-    for index, coordinate in enumerate(element):
-      if coordinate != 0:
-        indices.append(index)
-    print element, indices
+# for element in elements:
+#   if sum(element) == 4:
+#     indices = []
+#     for index, coordinate in enumerate(element):
+#       if coordinate != 0:
+#         indices.append(index)
+#     print element, indices
+
+
+
+
 
 # when generators are [bases[1], bases[2], h]
 # 240 elements, 421 polytope. 56 nearest neighbors for each point
