@@ -1,6 +1,7 @@
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
+import random
 from CayleyDickson import *
 
 def get_generators():
@@ -25,7 +26,7 @@ def tuplize(nparray):
   return tuple([int(c) for c in nparray])
 
 
-def generation_function(original, generator):
+def times(original, generator):
   vector = multiply(original, generator) / 2
   return tuplize(vector)
 
@@ -36,8 +37,8 @@ def generate_loop(generators, generation_limit = 10):
   for generation_index in xrange(generation_limit):
     generation_start_count = len(elements)
     for generator in generators:
-      new_elements = [generation_function(element, generator) for element in elements]
-      new_elements.extend([generation_function(generator, element) for element in elements])
+      new_elements = [times(element, generator) for element in elements]
+      new_elements.extend([times(generator, element) for element in elements])
       for el in new_elements:
         elements.add(el)
     print "Generation #" + repr(generation_index), ": ", len(elements)
@@ -54,7 +55,7 @@ def plot(elements, generators):
   for generator in generators:
     edge_per_color = []
     for element in elements:
-      edge_per_color.append((element, generation_function(element, generator)))
+      edge_per_color.append((element, times(element, generator)))
     edges.append(edge_per_color)
 
   pos = nx.spring_layout(graph)
@@ -68,6 +69,23 @@ generators = get_generators()
 elements = generate_loop(generators)
 
 print "Element count:", len(elements)
+
+
+elements = list(elements)
+random_indices = [random.randrange(len(elements)) for index in xrange(3)]
+
+a, b, c = [elements[index] for index in random_indices]
+
+print "random_indices: ", random_indices
+
+print "Associativity. Can be False:", times(times(a, b), c) == times(a, times(b, c))
+print "Associator ==", times(times(times(a, b), c), conj(times(a, times(b, c))))
+
+print "Moufang properties. Should be all True"
+print times(c, times(a, times(c, b))) == times(times(times(c, a), c), b)
+print times(a, times(c, times(b, c))) == times(times(times(a, c), b), c)
+print times(times(c, a), times(b, c)) == times(times(c, times(a, b)), c)
+print times(times(c, a), times(b, c)) == times(c, times(times(a, b), c))
 
 # plot(elements, generators)
 
