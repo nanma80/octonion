@@ -94,6 +94,20 @@ print times(times(c, a), times(b, c)) == times(c, times(times(a, b), c))
 #   if norm_element < 0.99 or norm_element > 1.01:
 #     print element, norm_element
 
+all_indices = set()
+
+for element in elements:
+  if sum([abs(el) for el in element]) == 4:
+    indices = []
+    for index, coordinate in enumerate(element):
+      if coordinate != 0:
+        indices.append(index)
+    all_indices.add(tuple(indices))
+
+all_indices = sorted(list(all_indices))
+print "Indices of nonzero half int vectors in elements are:"
+for indices in all_indices:
+  print indices
 
 # for element in elements:
 #   if sum(element) == 4:

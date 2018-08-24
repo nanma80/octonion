@@ -8,12 +8,15 @@ for index in xrange(8):
   bases.append(base)
 
 identity = bases[0]
+h = np.array([0, 1, 1, 1, 1, 0, 0, 0]) / 2.
 
 print multiply(bases[1], bases[2]), bases[3]
 print multiply(bases[1], bases[4]), bases[5]
 print multiply(bases[2], bases[4]), bases[6]
 print multiply(bases[3], bases[4]), bases[7]
 print bases[0]
+
+print multiply(h, h)
 
 # index, bases[index]
 # 0    , 1
