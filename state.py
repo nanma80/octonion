@@ -25,3 +25,10 @@ class State(object):
       return str(self.value) + '/2'
     else:
       return str(State([c/2 for c in self.value]).tuplize())
+
+  def __hash__(self):
+    return 0
+
+  def __eq__(self, other):
+    return self.value == other.value
+

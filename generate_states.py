@@ -1,6 +1,7 @@
 import numpy as np
 import marshal
 from CayleyDickson import *
+from state import *
 
 def get_generators():
   bases = []
@@ -17,9 +18,6 @@ def get_generators():
   return [bases[1], bases[2], h]
   # return [bases[1], bases[2], bases[4]]
 
-def norm(octonion):
-  return np.sqrt(multiply(conj(octonion), octonion)[0]) / 2
-
 def tuplize(nparray):
   return tuple([int(c) for c in nparray])
 
@@ -30,13 +28,13 @@ def times(original, generator):
 
 
 def generate_loop(generators, generation_limit = 10):
-  elements = set([tuplize(g) for g in generators])
+  elements = set([g for g in generators])
 
   for generation_index in xrange(generation_limit):
     generation_start_count = len(elements)
     for generator in generators:
-      new_elements = [times(element, generator) for element in elements]
-      new_elements.extend([times(generator, element) for element in elements])
+      new_elements = [element * generator for element in elements]
+      new_elements.extend([generator * element for element in elements])
       for el in new_elements:
         elements.add(el)
     print "Generation #" + repr(generation_index), ": ", len(elements)
@@ -45,13 +43,13 @@ def generate_loop(generators, generation_limit = 10):
       break
   return elements
 
-generators = get_generators()
+generators = [State(g) for g in get_generators()]
 elements = generate_loop(generators)
 
 print "Element count:", len(elements)
 
 
-elements = list(elements)
+elements = [e.value for e in elements]
 
 file_name = 'data/states_240.txt'
 
