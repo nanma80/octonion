@@ -26,7 +26,7 @@ class State(object):
     if has_half_integer:
       return str(self.double) + '/2'
     else:
-      return str(tuple([c / 2 for c in self.double]))
+      return str(tuple([int(c / 2) for c in self.double]))
 
   def __hash__(self):
     return hash(self.double)
