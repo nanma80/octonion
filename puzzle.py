@@ -99,7 +99,7 @@ def main():
 
       print "Input = " + input_string + " = " + str(input_value)
       current_state = current_state * input_value
-      print "New state = Current state * Input = " + str(current_state)
+      print "(New state) = (Old state) * (Input) = " + str(current_state)
 
       if current_state == winning_state:
         print winning_message
