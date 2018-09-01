@@ -15,8 +15,10 @@ def get_generators():
 
   h = [0, 1, 1, 1, 1, 0, 0, 0]
   # h2 = [0, 1, 1, 1, 0, 0, 1, 0]
+  h3 = [1, 1, 1, 1, 0, 0, 0, 0]
 
-  return [bases[1], bases[2], h]
+  # return [bases[1], bases[2], h]
+  return [bases[1], bases[2], h3]
   # return [bases[1], bases[2], bases[4]]
 
 def norm(octonion):
