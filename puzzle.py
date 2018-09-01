@@ -63,7 +63,7 @@ def main():
       Use i, j, or h as generators and use ( ) and octonion multiplication *
       to construct complex expressions.
       Example: h * (i * j)
-      The objective is to create """ + str(winning_state) + """
+      The objective is to reach """ + str(winning_state) + """
       Enter q to stop.
     """
 
