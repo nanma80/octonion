@@ -7,8 +7,9 @@ from CayleyDickson import *
 from state import *
 
 
-use_quaternions = False
+use_quaternions, use_base_octonions = False, False
 # use_quaternions = True
+# use_base_octonions = True
 
 
 def get_generators():
@@ -23,6 +24,8 @@ def get_generators():
   h = np.array([0, 1, 1, 1, 1, 0, 0, 0]) / 2.0
   if use_quaternions:
     h = np.array([1, 1, 1, 1, 0, 0, 0, 0]) / 2.0 # to generate Hurwitz quaternions
+  if use_base_octonions:
+    h = bases[4]
 
   return [bases[1], bases[2], h, bases[0]]
 
@@ -31,6 +34,9 @@ def load_states():
   state_file_name = 'data/states_240.txt'
   if use_quaternions:
     state_file_name = 'data/states_24.txt'
+  if use_base_octonions:
+    state_file_name = 'data/states_16.txt'
+
   with open(state_file_name, 'r') as f:
     states = marshal.load(f)
     return [State(s, True) for s in states]

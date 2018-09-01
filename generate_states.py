@@ -3,8 +3,9 @@ import marshal
 from CayleyDickson import *
 from state import *
 
-use_quaternions = False
+use_quaternions, use_base_octonions = False, False
 # use_quaternions = True
+# use_base_octonions = True
 
 
 def get_generators():
@@ -19,6 +20,8 @@ def get_generators():
   h = np.array([0, 1, 1, 1, 1, 0, 0, 0]) / 2.0
   if use_quaternions:
     h = np.array([1, 1, 1, 1, 0, 0, 0, 0]) / 2.0 # to generate Hurwitz quaternions
+  if use_base_octonions:
+    h = bases[4]
 
   return [bases[1], bases[2], h]
   # return [bases[1], bases[2], bases[4]]
@@ -51,4 +54,6 @@ element_values = [e.double for e in elements]
 file_name = 'data/states_' + str(len(elements))+ '.txt'
 
 with open(file_name, 'w') as f:
-  print marshal.dump(element_values, f)
+  marshal.dump(element_values, f)
+  print "Saved states to " + file_name
+  
