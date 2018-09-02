@@ -1,6 +1,4 @@
 import numpy as np
-import networkx as nx
-import matplotlib.pyplot as plt
 import random
 from CayleyDickson import *
 
@@ -17,8 +15,8 @@ def get_generators():
   # h2 = [0, 1, 1, 1, 0, 0, 1, 0]
   h3 = [1, 1, 1, 1, 0, 0, 0, 0]
 
-  # return [bases[1], bases[2], h]
-  return [bases[1], bases[2], h3]
+  return [bases[1], bases[2], h]
+  # return [bases[1], bases[2], h3]
   # return [bases[1], bases[2], bases[4]]
 
 def norm(octonion):
@@ -39,8 +37,9 @@ def generate_loop(generators, generation_limit = 10):
   for generation_index in xrange(generation_limit):
     generation_start_count = len(elements)
     for generator in generators:
-      new_elements = [times(element, generator) for element in elements]
-      new_elements.extend([times(generator, element) for element in elements])
+      new_elements = []
+      new_elements.extend([times(element, generator) for element in elements]) # right multiply
+      new_elements.extend([times(generator, element) for element in elements]) # left multiply
       for el in new_elements:
         elements.add(el)
     print "Generation #" + repr(generation_index), ": ", len(elements)
@@ -50,6 +49,9 @@ def generate_loop(generators, generation_limit = 10):
   return elements
 
 def plot(elements, generators):
+  import networkx as nx
+  import matplotlib.pyplot as plt
+
   graph = nx.DiGraph()
   graph.add_nodes_from(elements, node_color='blue')
   edges = []
