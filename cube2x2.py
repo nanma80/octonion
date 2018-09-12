@@ -43,18 +43,19 @@ def concatenate_permutations(perm1, perm2):
 
 def generate_loop(generators, generation_limit = 10):
   elements = set([g for g in generators])
-  elements_list = list(elements)
 
   for generation_index in xrange(generation_limit):
     elements_list = list(elements)
     generation_start_count = len(elements)
+    elements_next_gen = set(elements_list)
     # for generator in generators: # only from generators in each step
     for generator in elements_list: 
       new_elements = []
       new_elements.extend([element * generator for element in elements]) # right multiply
       # new_elements.extend([generator * element for element in elements]) # left multiply
       for el in new_elements:
-        elements.add(el)
+        elements_next_gen.add(el)
+    elements = elements_next_gen
     print "Generation #" + repr(generation_index), ": ", len(elements)
     generation_end_count = len(elements)
     if generation_end_count == generation_start_count:
