@@ -51,7 +51,7 @@ print "Element count:", len(elements)
 
 element_values = [e.double for e in elements]
 
-file_name = 'data/states_' + str(len(elements))+ '.txt'
+file_name = '../data/states_' + str(len(elements))+ '.txt'
 
 with open(file_name, 'w') as f:
   marshal.dump(element_values, f)

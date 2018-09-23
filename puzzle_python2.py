@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+sys.path.append('scripts')
 import numpy as np
 import random
 import marshal
