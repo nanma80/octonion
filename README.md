@@ -1,11 +1,11 @@
-# octonion
+# Octonion
 
-This repo contains a puzzle about integral octonions, and some scripts to explore octonions.
+This repo contains a puzzle about integral octonions, and some scripts to explore octonions. This is a joint work with [Roice Nelson](https://github.com/roice3).
 
 ## How to run the integral octonions puzzle?
-- Install Python, 2.* or 3.*
-- Install numpy
-- Run puzzle_python2.py or puzzle_python3.py depending on the Python version you installed
+- Install Python, 2.* or 3.*.
+- Install numpy.
+- Run puzzle_python2.py or puzzle_python3.py depending on the Python version you installed.
 - Follow the instructions to solve it. You may want to refer to the explanations below.
 
 ## About [octonions](https://en.wikipedia.org/wiki/Octonion#Definition):
@@ -16,11 +16,12 @@ This repo contains a puzzle about integral octonions, and some scripts to explor
 ## About [integral octonions](https://en.wikipedia.org/wiki/Octonion#Integral_octonions):
 - They are octonions whose coordinates are all integers or all half-integers satisfying certain properties.
 - The minimum nonzero norm of integral octonions is 1. There are 240 integral octonions with norm = 1.
-- The identity octonion, (1, 0, 0, 0, 0, 0, 0, 0), is an integral octonion with norm = 1.
+- The set of 240 unit norm integral octonions is closed under octonion multiplication. That is, the product of two numbers in this set stays in the set.
+- The identity octonion, (1, 0, 0, 0, 0, 0, 0, 0), is a unit norm integral octonion.
 - If we start from three generators
-  - i = (0, 1, 0, 0, 0, 0, 0, 0)
-  - j = (0, 0, 1, 0, 0, 0, 0, 0)
-  - h = (0, 1, 1, 1, 1, 0, 0, 0)/2
+  - i = (0, 1, 0, 0, 0, 0, 0, 0),
+  - j = (0, 0, 1, 0, 0, 0, 0, 0),
+  - h = (0, 1, 1, 1, 1, 0, 0, 0)/2,
     
   and use the octonion multiplication *, we can generate all 240 integral octonions with unit norm.
 ## About this integral octonions puzzle:
@@ -28,10 +29,10 @@ This repo contains a puzzle about integral octonions, and some scripts to explor
 - In each step
   - You input an expression of i, j, h, and the octonion multiplication *, with parenthesis (). For example, h * (i * j).
   - The input expression is evaluated. By construction, it is also a unit norm integral octonion.
-  - (The new state) = (the old state) * (input)
+  - (The new state) = (the old state) * (input).
 - You win when the state is the identity octonion (1, 0, 0, 0, 0, 0, 0, 0).
 - Significance of non-associativity:
-  - Since the multiplication is not associative: state * (a * b) != (state * a) * b, applying (a * b) as input is different from applying a and then applying b.
-  - If you only input i or j or h by themselves and do not use multiplication in the input expression, it is unlikely you will be able to solve the puzzle.
-  - At least try (i * h) at some point!
-  
+  - Since the multiplication is not associative: state * (a * b) != (state * a) * b, applying the expression (a * b) as input is different from applying a and then applying b.
+  - If you only input i or j or h by themselves and do not use multiplication in the input expression, it is unlikely (with 20% chance) you will be able to solve the puzzle.
+  - Therefore, we highly recommend trying at least (i * h) if you are stuck.
+
