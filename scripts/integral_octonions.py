@@ -52,18 +52,19 @@ def plot(elements, generators):
   import networkx as nx
   import matplotlib.pyplot as plt
 
-  graph = nx.DiGraph()
-  graph.add_nodes_from(elements, node_color='blue')
+  graph = nx.Graph()
+  graph.add_nodes_from(elements)
   edges = []
-  colors = ['red', 'magenta', 'green', 'blue']
-  for generator in generators:
+  colors = ['red', 'green', 'blue', 'magenta']
+  for g_index in xrange(len(generators)):
+    generator = generators[g_index]
     edge_per_color = []
     for element in elements:
       edge_per_color.append((element, times(element, generator)))
+    graph.add_edges_from(edge_per_color)
     edges.append(edge_per_color)
 
   pos = nx.spring_layout(graph)
-
   nx.draw_networkx_nodes(graph, pos, node_color='black')
   for index in xrange(len(edges)):
     nx.draw_networkx_edges(graph, pos, edgelist=edges[index], edge_color=colors[index], arrows=True)
