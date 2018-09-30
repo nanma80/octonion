@@ -73,12 +73,12 @@ The goal is to get the state to the identity octonion (1, 0, 0, 0, 0, 0, 0, 0).
 The reason why we allow entering an expression of i, j, h rather than applying them individually is not just for convenience like macros in the Rubik’s Cube. It’s because of non-associativity. Since (state * (a * b)) may not equal ((state * a) * b), applying the expression (a * b) as input can be different from applying a and then applying b. If we only enter i,  j or h individually in each step, we have only a 20% chance (48 out of 240 initial states) of solving it. For this reason, we highly recommend trying at least i * h if you feel stuck. By doing so, you are embracing the essence of non-associativity.
 
 To get a sense about how hard this puzzle is, and to try out the non-associative solving experience, Nan implemented it in Python as a proof of concept. We found it nontrivial and interesting, even when the space is as small as 240 elements. Here’s how you can also try it:
-Install Python, either 2.* or 3.*.
-Install numpy.
-Clone my repo: https://github.com/nanma80/octonion
-Run puzzle_python2.py or puzzle_python3.py depending on the Python version you installed.
-Follow the instructions to solve it. The instruction is as same as the description above.
-Solve it, or enter q to quit.
+1. Install Python, either 2.* or 3.*.
+1. Install numpy.
+1. Clone my repo: https://github.com/nanma80/octonion
+1. Run puzzle_python2.py or puzzle_python3.py depending on the Python version you installed.
+1. Follow the instructions to solve it. The instruction is as same as the description above.
+1. Solve it, or enter q to quit.
 
 About the solving experience: We think the puzzle is hard, partly because the h move is unintuitive. We observed that
 * i, j, or h applied individually is always a 4-cycle.
