@@ -1,6 +1,6 @@
 # Octonion
 
-This repo contains a proof-of-concept puzzle on integral octonions, and some scripts to explore octonions. This is a joint work with [Roice Nelson](https://github.com/roice3). This puzzle is a proof of concept of non-associative puzzles. It was created so that we can have a taste of the difficulty level and non-associative solving experience. We are working on improving it and making it more intuitive. We are also working on other non-associative puzzles. An introduction can be found [here](https://docs.google.com/document/d/1q0x0Z2-emntmOZ_VIPZn1jVLFZktUCo1ROIcNNfM4uE/edit?usp=sharing).
+This repo contains a proof-of-concept puzzle on integral octonions, and some scripts to explore octonions. This is a joint work with [Roice Nelson](https://github.com/roice3). This puzzle is a proof of concept of non-associative puzzles. It was created so that we can have a taste of the difficulty level and non-associative solving experience. We are working on improving it and making it more intuitive. We are also working on other non-associative puzzles. An introduction can be found [here](http://nan.ma/octonion/).
 
 ## How to run the integral octonions puzzle?
 - Install Python, 2.* or 3.*.
