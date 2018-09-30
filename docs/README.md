@@ -87,11 +87,11 @@ About the solving experience: We think the puzzle is hard, partly because the h 
 * (i * j) * h is different from i * (j * h), verifying non-associativity among three generators.
 If you know any method to illustrate octonion multiplication, please let us know and we can improve this puzzle.
 
-We are also working on non-associative puzzles based on loops with more states and more “intuitive” moves. We are experimenting something based on a 2x2x2 cube and a modified construction of “M(G,2)” [here](https://en.wikipedia.org/wiki/Moufang_loop#Examples). We don’t have a prototype yet but may discuss it later in another email.
+We are also working on non-associative puzzles based on loops with more states and more “intuitive” moves. We are experimenting something based on a 2x2x2 cube and a modified construction of “M(G,2)” [here](https://en.wikipedia.org/wiki/Moufang_loop#Examples). We don’t have a prototype yet but may discuss it later.
 
 ============
 
-This is a long email. We only have some ideas and a proof of concept. We'd like to make more polished non-associative puzzles.
+This is a long introduction. We only have some ideas and a proof of concept. We'd like to make more polished non-associative puzzles.
 * Do you know a good way to illustrate octonions, or integral octonions?
 * Can you think of other non-associative rules for puzzles?
 Please leave comments or suggestions!
