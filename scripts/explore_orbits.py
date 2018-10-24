@@ -115,15 +115,14 @@ random_indices = [random.randrange(len(elements)) for index in xrange(3)]
 all_indices = set()
 
 for element in elements:
-  if sum([abs(el) for el in element]) == 4:
-    indices = []
-    for index, coordinate in enumerate(element):
-      if coordinate != 0:
-        indices.append(index)
-    all_indices.add(tuple(indices))
+  indices = []
+  for index, coordinate in enumerate(element):
+    if coordinate != 0:
+      indices.append(index)
+  all_indices.add(tuple(indices))
 
 all_indices = sorted(list(all_indices))
-print "Indices of nonzero half int vectors in elements are:"
+print "Indices of nonzero vectors in elements are:"
 for indices in all_indices:
   print indices
 
