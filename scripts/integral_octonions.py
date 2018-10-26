@@ -14,8 +14,15 @@ def get_generators():
   h = [0, 1, 1, 1, 1, 0, 0, 0]
   # h2 = [0, 1, 1, 1, 0, 0, 1, 0]
   h3 = [1, 1, 1, 1, 0, 0, 0, 0]
+  omega = [1, 1, 1, 0, 1, 0, 0, 0]
+  psi = [0, 1, 1, 1, 0, 1, 0, 0]
+  balanced = [1, 1, 1, 1, 0, 0, 0, 0]
+  balanced2 = [1, 1, 0, 0, 1, 1, 0, 0]
 
   return [bases[1], bases[2], h]
+  # return [bases[1], omega, psi]
+  # return [bases[1], bases[2], psi]
+  # return [bases[1], balanced, balanced2]
   # return [bases[1], bases[2], h3]
   # return [bases[1], bases[2], bases[4]]
 
@@ -95,6 +102,7 @@ print times(times(c, a), times(b, c)) == times(c, times(times(a, b), c))
 # plot(elements, generators)
 
 # for element in elements:
+  # print element
 #   norm_element = norm(element)
 #   if norm_element < 0.99 or norm_element > 1.01:
 #     print element, norm_element
