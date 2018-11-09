@@ -30,11 +30,34 @@ def generate_loop(generators, generation_limit = 10):
       break
   return elements
 
+def print_elements(elements):
+  unit_zorn = Zorn([[1, [0, 0, 0]], [[0, 0, 0], 1]])
+
+  for element in elements:
+    order = 0
+    if element == unit_zorn:
+      print "order = 1,", element
+    elif (element * element) == unit_zorn:
+      order = 2
+      if element.a == element.b:
+        print "order = 2,", element
+      else:
+        raise(Exception("unexpected order 2: " + str(element)))
+    elif (element * element) * element == unit_zorn:
+      order = 3
+      if element.a == (element.b + 1) % 2:
+        print "order = 3,", element
+      else:
+        raise(Exception("unexpected order 3: " + str(element)))
+    else:
+      raise(Exception("unexpected order > 3: " + str(element)))
+
+
+
 generators = get_generators()
 
 elements = generate_loop(generators)
 
 print "Final element count:", len(elements)
 
-for element in elements:
-  print element
+print_elements(elements)
