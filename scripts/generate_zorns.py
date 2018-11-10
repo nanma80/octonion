@@ -1,3 +1,4 @@
+import random
 from zorn import *
 
 
@@ -59,6 +60,26 @@ def print_elements(elements):
       raise(Exception("unexpected order > 3: " + str(element)))
 
 
+def check_properties(elements):
+  def times(a, b):
+    return multiply(a, b, 2)
+
+  elements = list(elements)
+  random_indices = [random.randrange(len(elements)) for index in xrange(3)]
+
+  a, b, c = [elements[index] for index in random_indices]
+
+  print "random_indices: ", random_indices
+
+  print "Associativity. Can be False or True:", times(times(a, b), c) == times(a, times(b, c))
+  
+  print "Moufang properties. Should be all True"
+  print times(c, times(a, times(c, b))) == times(times(times(c, a), c), b)
+  print times(a, times(c, times(b, c))) == times(times(times(a, c), b), c)
+  print times(times(c, a), times(b, c)) == times(times(c, times(a, b)), c)
+  print times(times(c, a), times(b, c)) == times(c, times(times(a, b), c))
+
+
 
 generators = get_generators()
 
@@ -66,4 +87,5 @@ elements = generate_loop(generators)
 
 print "Final element count:", len(elements)
 
-print_elements(elements)
+# print_elements(elements)
+check_properties(elements)
