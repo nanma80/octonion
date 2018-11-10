@@ -11,7 +11,13 @@ def get_generators():
   j = Zorn([[0, e2], [e2, 0]], field_q)
   h = Zorn([[1, [0, 1, 0]], [[1, 0, 1], 1]], field_q)
 
+  g1 = Zorn([[1, e1], [e1, 0]], field_q)
+  g2 = Zorn([[1, e2], [e2, 0]], field_q)
+  g3 = Zorn([[0, e3], [e3, 1]], field_q)
+
+
   return [i, j, h]
+  # return [g1, g2, g3]
 
 def generate_loop(generators, generation_limit = 10):
   elements = set([g for g in generators])
