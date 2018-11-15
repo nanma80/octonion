@@ -38,3 +38,13 @@ print "Final element count:", len(elements)
 
 for element in elements:
   print element
+
+# counts = [0, 0]
+# for index in xrange(2 ** 8):
+#   binary = [int(c) for c in list(bin(index + 2 ** 8)[3:])]
+#   candidate = Zorn([[binary[0], [binary[1], binary[2], binary[3]]], [[binary[4], binary[5], binary[6]], binary[7]]])
+#   counts[candidate.det()] += 1
+# print counts # 136 zorn matrices with det == 0, 120 with det == 1. Elements are all those with det == 1
+
+
+
