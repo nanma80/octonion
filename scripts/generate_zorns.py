@@ -1,3 +1,4 @@
+import random
 from zorn import *
 
 
@@ -11,7 +12,13 @@ def get_generators():
   j = Zorn([[0, e2], [e2, 0]], field_q)
   h = Zorn([[1, [0, 1, 0]], [[1, 0, 1], 1]], field_q)
 
+  g1 = Zorn([[1, e1], [e1, 0]], field_q)
+  g2 = Zorn([[1, e2], [e2, 0]], field_q)
+  g3 = Zorn([[0, e3], [e3, 1]], field_q)
+
+
   return [i, j, h]
+  # return [g1, g2, g3]
 
 def generate_loop(generators, generation_limit = 10):
   elements = set([g for g in generators])
@@ -30,14 +37,55 @@ def generate_loop(generators, generation_limit = 10):
       break
   return elements
 
+def print_elements(elements):
+  unit_zorn = Zorn([[1, [0, 0, 0]], [[0, 0, 0], 1]])
+
+  for element in elements:
+    order = 0
+    if element == unit_zorn:
+      print "order = 1,", element
+    elif (element * element) == unit_zorn:
+      order = 2
+      if element.a == element.b:
+        print "order = 2,", element
+      else:
+        raise(Exception("unexpected order 2: " + str(element)))
+    elif (element * element) * element == unit_zorn:
+      order = 3
+      if element.a == (element.b + 1) % 2:
+        print "order = 3,", element
+      else:
+        raise(Exception("unexpected order 3: " + str(element)))
+    else:
+      raise(Exception("unexpected order > 3: " + str(element)))
+
+
+def check_properties(elements):
+  def times(a, b):
+    return multiply(a, b, 2)
+
+  elements = list(elements)
+  random_indices = [random.randrange(len(elements)) for index in xrange(3)]
+
+  a, b, c = [elements[index] for index in random_indices]
+
+  print "random_indices: ", random_indices
+
+  print "Associativity. Can be False or True:", times(times(a, b), c) == times(a, times(b, c))
+  
+  print "Moufang properties. Should be all True"
+  print times(c, times(a, times(c, b))) == times(times(times(c, a), c), b)
+  print times(a, times(c, times(b, c))) == times(times(times(a, c), b), c)
+  print times(times(c, a), times(b, c)) == times(times(c, times(a, b)), c)
+  print times(times(c, a), times(b, c)) == times(c, times(times(a, b), c))
+
+
+
 generators = get_generators()
 
 elements = generate_loop(generators)
 
 print "Final element count:", len(elements)
-
-for element in elements:
-  print element
 
 # counts = [0, 0]
 # for index in xrange(2 ** 8):
@@ -47,4 +95,6 @@ for element in elements:
 # print counts # 136 zorn matrices with det == 0, 120 with det == 1. Elements are all those with det == 1
 
 
+# print_elements(elements)
+check_properties(elements)
 
