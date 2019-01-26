@@ -1,3 +1,11 @@
+import marshal
+
+file_name = './data/zorn_orbit_120.txt'
+with open(file_name, 'r') as f:
+  marshalled_dict = marshal.load(f)
+
+dict_element_orbit = dict()
+
 def dot(a, b, field_q):
   return (a[0] * b[0] + a[1] * b[1] + a[2] * b[2]) % field_q
 
@@ -45,6 +53,13 @@ class Zorn(object):
   def det(self):
     return (self.a * self.b - dot(self.alpha, self.beta, self.field_q)) % self.field_q
 
+
+  def sequence(self):
+    return [self.a] + [self.b] + self.alpha + self.beta
+
+
+  def orbit(self):
+    return dict_element_orbit[self]
     
   def __mul__(self, other):
     return multiply(self, other, self.field_q)
@@ -55,12 +70,19 @@ class Zorn(object):
 
 
   def __str__(self):
-    return 'matrix = ' + str(self.matrix) + ', det = ' + str(self.det())
+    # return 'matrix = ' + str(self.matrix) + ', det = ' + str(self.det())
+    return str(self.matrix) + ', ' + str(self.orbit())
 
 
   def __hash__(self):
-    return hash(self.a) + hash(self.b)
+    # return hash(self.a) + hash(self.b)
+    return hash(tuple(self.sequence()))
 
 
   def __eq__(self, other):
     return self.matrix == other.matrix
+
+for key in marshalled_dict:
+  orbit_number = marshalled_dict[key]
+  zorn = Zorn([[key[0], [key[2], key[3], key[4]]], [[key[5], key[6], key[7]], key[1]]])
+  dict_element_orbit[zorn] = orbit_number

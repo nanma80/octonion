@@ -1,4 +1,5 @@
 import random
+import marshal
 from zorn import *
 
 
@@ -31,11 +32,33 @@ def generate_loop(generators, generation_limit = 10):
       new_elements.extend([generator * element for element in elements])
       for el in new_elements:
         elements.add(el)
-    print "Generation #" + repr(generation_index), ": ", len(elements)
+    # print "Generation #" + repr(generation_index), ": ", len(elements)
     generation_end_count = len(elements)
     if generation_end_count == generation_start_count:
       break
   return elements
+
+
+def generate_coset(seed, generators, generation_limit = 10):
+  elements = set([seed])
+
+  for generation_index in xrange(generation_limit):
+    generation_start_count = len(elements)
+    for generator in generators:
+      new_elements = []
+      new_elements.extend([element * generator for element in elements])
+      for el in new_elements:
+        elements.add(el)
+    # print "Generation #" + repr(generation_index), ": ", len(elements)
+    generation_end_count = len(elements)
+    if generation_end_count == generation_start_count:
+      break
+  elements = sorted(list(elements), key=lambda x:x.sequence())
+  return elements
+
+
+def get_orbit_hash(coset):
+  return hash(tuple(coset))
 
 def print_elements(elements):
   unit_zorn = Zorn([[1, [0, 0, 0]], [[0, 0, 0], 1]])
@@ -83,9 +106,34 @@ def check_properties(elements):
 
 generators = get_generators()
 
-elements = generate_loop(generators)
-
+elements = list(generate_loop(generators))
 print "Final element count:", len(elements)
+
+orbit_hashes = set()
+
+for index in xrange(len(elements)):
+  coset = generate_coset(elements[index], generators)
+  orbit_hashes.add(get_orbit_hash(coset))
+
+orbit_hashes = sorted(list(orbit_hashes))
+print orbit_hashes
+
+dict_element_orbit = dict()
+
+for index in xrange(len(elements)):
+  coset = generate_coset(elements[index], generators)
+  orbit_number = orbit_hashes.index(get_orbit_hash(coset))
+  dict_element_orbit[tuple(elements[index].sequence())] = orbit_number
+
+print dict_element_orbit
+
+file_name = './data/zorn_orbit_' + str(len(elements))+ '.txt'
+
+with open(file_name, 'w') as f:
+  marshal.dump(dict_element_orbit, f)
+  print "Saved states to " + file_name
+  
+
 
 # counts = [0, 0]
 # for index in xrange(2 ** 8):
@@ -96,5 +144,5 @@ print "Final element count:", len(elements)
 
 
 # print_elements(elements)
-check_properties(elements)
+# check_properties(elements)
 
