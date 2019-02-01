@@ -32,16 +32,20 @@ h = Zorn([[1, [0, 1, 0]], [[1, 0, 1], 1]])
 
 # print 'jh:', (j * h)
 
-mix1 = (i * j) * h # 2143 (12)(34) -> 1(23)4 swap middle => 2413
-mix2 = i * (j * h) # 2134 (12)34 -> 1(234) => ???
-print mix1
-print mix1 * mix1
-print mix1 * mix1 * mix1 # mix1^3 = 1 not ^4
+mix1 = (i * j) * h # (12)(34) -> 1(23)4 swap middle => 2413
+mix2 = i * (j * h) # 2134 (12)34 -> 1(234) => ??? 2413*
+print mix1 # orbit 3
+print mix1 * mix1 # orbit 4
+print mix1 * mix1 * mix1 # mix1^3 = 1 not ^4; orbit 3
 print
 
-print mix2
-print mix2 * mix2
-print mix2 * mix2 * mix2 # mix2^3 = 1 not ^4
+print mix2 # orbit 4
+print mix2 * mix2 # orbit 3. What permutation is it? inv(mix2) == (h * i) * j
+print mix2 * mix2 * mix2 # mix2^3 = 1 not ^4; orbit 3
+print
+
+print mix2 * mix2 == (h * i) * j # 1324 -> 3124 -> 3142
+print (h * i) * j * mix2 # 1
 print
 
 print j * h

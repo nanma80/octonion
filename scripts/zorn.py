@@ -71,7 +71,7 @@ class Zorn(object):
 
   def __str__(self):
     # return 'matrix = ' + str(self.matrix) + ', det = ' + str(self.det())
-    return str(self.matrix) + ', ' + str(self.orbit())
+    return str(self.matrix) + ', orbit ' + str(self.orbit())
 
 
   def __hash__(self):
