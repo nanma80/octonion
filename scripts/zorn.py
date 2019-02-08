@@ -1,10 +1,11 @@
 import marshal
 
+dict_element_orbit = dict()
+all_zorns = []
+
 file_name = './data/zorn_orbit_120.txt'
 with open(file_name, 'r') as f:
   marshalled_dict = marshal.load(f)
-
-dict_element_orbit = dict()
 
 def dot(a, b, field_q):
   return (a[0] * b[0] + a[1] * b[1] + a[2] * b[2]) % field_q
@@ -86,3 +87,5 @@ for key in marshalled_dict:
   orbit_number = marshalled_dict[key]
   zorn = Zorn([[key[0], [key[2], key[3], key[4]]], [[key[5], key[6], key[7]], key[1]]])
   dict_element_orbit[zorn] = orbit_number
+  all_zorns.append(zorn)
+
