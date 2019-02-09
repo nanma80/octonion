@@ -15,10 +15,19 @@ for zorn in all_zorns:
         exit
 
 
-for key in inverse:
-  inv_key = inverse[key]
-  if key.orbit() == 3:
-    print str(key) + ' -> ' + str(inv_key)
+for orbit_index in xrange(5):
+  inv_orbits = dict()
+  for key in inverse:
+    inv_key = inverse[key]
+    if key.orbit() == orbit_index:
+      print str(key) + ' -> ' + str(inv_key)
+      inv_orbit = inv_key.orbit()
+      if inv_orbit in inv_orbits:
+        inv_orbits[inv_orbit] += 1
+      else:
+        inv_orbits[inv_orbit] = 1
+  print inv_orbits
+  print
 
 
 
